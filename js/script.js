@@ -33,6 +33,8 @@
     document.body.classList.remove("cover-locked");
     musicBtn.classList.add("show");
     window.scrollTo(0, 0);
+    // Musik mulai di dalam gestur klik ini (syarat autoplay browser).
+    playMusic();
     // Hapus sampul dari DOM setelah animasi selesai (hemat memori).
     setTimeout(function () { cover.remove(); }, 700);
   });
@@ -141,28 +143,47 @@
     window.open(url, "_blank");
   });
 
-  /* ---------- 7. Musik latar (opsional) ---------- */
-  // File assets/music.mp3 TIDAK disertakan dalam paket.
-  // Kalau file belum ada, tombol menampilkan pemberitahuan (bukan error).
+  /* ---------- 7. Musik latar ---------- */
+  // "Meditation Impromptu 01" — Kevin MacLeod (incompetech.com), CC BY 4.0.
+  // Disertakan sebagai assets/music.mp3. Volume 0.5, loop.
+  // Kalau file gagal dimuat, tombol menampilkan pemberitahuan (bukan error).
+  audio.volume = 0.5;
   var musicReady = false;
   audio.addEventListener("canplay", function () { musicReady = true; });
   audio.addEventListener("error", function () { musicReady = false; });
 
-  musicBtn.addEventListener("click", function () {
-    if (audio.paused) {
-      var p = audio.play();
-      if (p && p.catch) {
-        p.then(function () {
-          musicBtn.classList.add("playing");
-          musicBtn.textContent = "❚❚";
-        }).catch(function () {
-          showToast("File musik belum ditambahkan — lihat README.md");
-        });
-      }
-    } else {
-      audio.pause();
-      musicBtn.classList.remove("playing");
-      musicBtn.textContent = "♪";
+  function playMusic() {
+    var p = audio.play();
+    if (p && p.catch) {
+      p.then(function () {
+        musicBtn.classList.add("playing");
+        musicBtn.textContent = "❚❚";
+      }).catch(function () {
+        showToast("Musik tidak dapat diputar di perangkat ini.");
+      });
     }
+  }
+  function pauseMusic() {
+    audio.pause();
+    musicBtn.classList.remove("playing");
+    musicBtn.textContent = "♪";
+  }
+
+  musicBtn.addEventListener("click", function () {
+    if (audio.paused) { playMusic(); } else { pauseMusic(); }
   });
+
+  /* ---------- 8. Animasi scroll (AOS) + lightbox galeri (GLightbox) ---------- */
+  // Keduanya dimuat dari CDN. Kalau CDN gagal, konten TIDAK boleh hilang:
+  // hapus atribut data-aos supaya aturan CSS AOS tidak lagi menyembunyikan section.
+  if (typeof AOS !== "undefined") {
+    AOS.init({ once: true, duration: 800, offset: 60 });
+  } else {
+    document.querySelectorAll("[data-aos]").forEach(function (el) {
+      el.removeAttribute("data-aos");
+    });
+  }
+  if (typeof GLightbox !== "undefined") {
+    GLightbox({ selector: ".glightbox" });
+  }
 })();
