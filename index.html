@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raka &amp; Sinta — Undangan Pernikahan | 20 Desember 2026</title>
   <meta name="description" content="Undangan pernikahan Raka & Sinta — Minggu, 20 Desember 2026. Akad pukul 08.00 WIB, resepsi pukul 11.00–14.00 WIB di Gedung Serbaguna, Jakarta.">
-  <!-- Font: Cormorant Garamond (judul) + Jost (isi). Kalau offline, fallback serif/sans-serif tetap rapi. -->
+  <!-- Font: Great Vibes (nama pasangan, script elegan) + Cormorant Garamond (judul) + Jost (isi).
+       Kalau offline, fallback cursive/serif/sans-serif tetap rapi. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- AOS 2.3.4 (animasi reveal saat scroll) + GLightbox (galeri diperbesar).
+       Keduanya CDN — kalau gagal dimuat, konten tetap terlihat (lihat js/script.js). -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+  <noscript><style>[data-aos]{opacity:1 !important;transform:none !important;}</style></noscript>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
@@ -35,8 +43,17 @@
   <!-- ============ ISI UNDANGAN ============ -->
   <main id="content">
 
+    <!-- Ayat pembuka + salam -->
+    <section class="section section-ayat" data-aos="fade-up">
+      <p class="bismillah" dir="rtl" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="ayat-arab" dir="rtl" lang="ar">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ</p>
+      <p class="ayat-arti">"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."</p>
+      <p class="ayat-sumber">— QS. Ar-Rūm: 21</p>
+      <p class="salam">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+    </section>
+
     <!-- Salam pembuka -->
-    <section class="section section-hero">
+    <section class="section section-hero" data-aos="fade-up">
       <p class="eyebrow">Dengan memohon rahmat dan ridha Allah SWT</p>
       <h2 class="section-title">Kami yang Berbahagia</h2>
       <div class="divider"><span>◆</span></div>
@@ -51,7 +68,7 @@
     </section>
 
     <!-- Hitung mundur -->
-    <section class="section section-countdown">
+    <section class="section section-countdown" data-aos="fade-up">
       <h2 class="section-title">Menghitung Hari Bahagia</h2>
       <div class="divider"><span>◆</span></div>
       <div class="countdown" id="countdown" aria-live="polite">
@@ -64,7 +81,7 @@
     </section>
 
     <!-- Detail acara -->
-    <section class="section section-events">
+    <section class="section section-events" data-aos="fade-up">
       <h2 class="section-title">Rangkaian Acara</h2>
       <div class="divider"><span>◆</span></div>
       <div class="event-cards">
@@ -74,6 +91,9 @@
           <p class="event-day">Minggu, 20 Desember 2026</p>
           <p class="event-time">08.00 – 10.00 WIB</p>
           <p class="event-place">Gedung Serbaguna<br>Jakarta</p>
+          <div class="calendar-btns">
+            <a class="btn-outline btn-cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Akad+Nikah+Raka+%26+Sinta&amp;dates=20261220T010000Z/20261220T030000Z&amp;details=Akad+nikah+Raka+Pratama+%26+Sinta+Maharani&amp;location=Gedung+Serbaguna%2C+Jakarta" target="_blank" rel="noopener">📅 Google Calendar</a>
+          </div>
         </article>
         <article class="event-card">
           <p class="event-icon">🎉</p>
@@ -81,35 +101,88 @@
           <p class="event-day">Minggu, 20 Desember 2026</p>
           <p class="event-time">11.00 – 14.00 WIB</p>
           <p class="event-place">Gedung Serbaguna<br>Jakarta</p>
+          <div class="calendar-btns">
+            <a class="btn-outline btn-cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Resepsi+Raka+%26+Sinta&amp;dates=20261220T040000Z/20261220T070000Z&amp;details=Resepsi+pernikahan+Raka+Pratama+%26+Sinta+Maharani&amp;location=Gedung+Serbaguna%2C+Jakarta" target="_blank" rel="noopener">📅 Google Calendar</a>
+          </div>
         </article>
       </div>
+      <a class="btn-outline btn-cal btn-ics" href="wedding.ics" download="Undangan-Raka-Sinta.ics">⬇ Unduh Kalender (.ics)</a>
       <a class="btn-gold btn-map" href="https://www.google.com/maps/search/?api=1&amp;query=Gedung+Serbaguna+Jakarta" target="_blank" rel="noopener">📍 Lihat Lokasi di Google Maps</a>
       <p class="small-note">Alamat lengkap menyusul pada undangan cetak. Tautan di atas membuka pencarian lokasi di Google Maps.</p>
     </section>
 
+    <!-- Dress code -->
+    <section class="section section-dresscode" data-aos="fade-up">
+      <h2 class="section-title">Dress Code</h2>
+      <div class="divider"><span>◆</span></div>
+      <p class="section-sub">Kami akan sangat senang apabila Bapak/Ibu/Saudara/i hadir dengan busana berikut:</p>
+      <div class="dress-swatches">
+        <div class="swatch">
+          <span class="swatch-color swatch-navy" aria-hidden="true"></span>
+          <span class="swatch-label">Navy</span>
+        </div>
+        <div class="swatch">
+          <span class="swatch-color swatch-gold" aria-hidden="true"></span>
+          <span class="swatch-label">Gold</span>
+        </div>
+      </div>
+      <p class="dress-text">Batik / Formal — nuansa <strong>Navy &amp; Gold</strong></p>
+    </section>
+
     <!-- Galeri -->
-    <section class="section section-gallery">
+    <section class="section section-gallery" data-aos="fade-up">
       <h2 class="section-title">Galeri</h2>
       <div class="divider"><span>◆</span></div>
-      <p class="section-sub">Tiga potongan dari satu foto mockup undangan — cincin, kartu undangan, dan mawar putih.</p>
+      <p class="section-sub">Tiga potongan dari satu foto mockup undangan — cincin, kartu undangan, dan mawar putih. Ketuk foto untuk memperbesar.</p>
       <div class="gallery">
         <figure class="gallery-item">
-          <img src="assets/foto-pasangan.jpg" alt="Dua cincin emas di samping mawar putih" class="crop-rings">
+          <a href="assets/foto-pasangan.jpg" class="glightbox" data-gallery="galeri" data-title="Cincin Pernikahan">
+            <img src="assets/foto-pasangan.jpg" alt="Dua cincin emas di samping mawar putih" class="crop-rings">
+          </a>
           <figcaption>Cincin Pernikahan</figcaption>
         </figure>
         <figure class="gallery-item">
-          <img src="assets/foto-pasangan.jpg" alt="Kartu undangan digital di layar ponsel" class="crop-phone">
+          <a href="assets/foto-pasangan.jpg" class="glightbox" data-gallery="galeri" data-title="Undangan Digital">
+            <img src="assets/foto-pasangan.jpg" alt="Kartu undangan digital di layar ponsel" class="crop-phone">
+          </a>
           <figcaption>Undangan Digital</figcaption>
         </figure>
         <figure class="gallery-item">
-          <img src="assets/foto-pasangan.jpg" alt="Mawar putih dan daun eukaliptus" class="crop-roses">
+          <a href="assets/foto-pasangan.jpg" class="glightbox" data-gallery="galeri" data-title="Mawar Putih">
+            <img src="assets/foto-pasangan.jpg" alt="Mawar putih dan daun eukaliptus" class="crop-roses">
+          </a>
           <figcaption>Mawar Putih</figcaption>
         </figure>
       </div>
     </section>
 
+    <!-- Kisah cinta -->
+    <!-- KONTEN DEMO — ganti tanggal dan cerita dengan kisah asli kedua mempelai. -->
+    <section class="section section-story" data-aos="fade-up">
+      <h2 class="section-title">Kisah Kami</h2>
+      <div class="divider"><span>◆</span></div>
+      <p class="section-sub">Perjalanan singkat kami hingga hari bahagia ini.</p>
+      <ol class="timeline">
+        <li class="timeline-item">
+          <p class="timeline-year">2019</p>
+          <h3>Pertemuan Pertama</h3>
+          <p>Kami pertama kali bertemu di sebuah acara kampus. Dari obrolan singkat tentang tugas akhir, berlanjut menjadi pertemanan yang tak pernah putus.</p>
+        </li>
+        <li class="timeline-item">
+          <p class="timeline-year">2022</p>
+          <h3>Lamaran</h3>
+          <p>Di hadapan kedua keluarga, Raka meminang Sinta dengan sederhana namun penuh makna. Air mata bahagia menjadi saksi hari itu.</p>
+        </li>
+        <li class="timeline-item">
+          <p class="timeline-year">2026</p>
+          <h3>Pernikahan</h3>
+          <p>Dengan restu kedua orang tua, kami melangkah ke jenjang pernikahan — awal dari perjalanan panjang kami berdua.</p>
+        </li>
+      </ol>
+    </section>
+
     <!-- RSVP -->
-    <section class="section section-rsvp">
+    <section class="section section-rsvp" data-aos="fade-up">
       <h2 class="section-title">Konfirmasi Kehadiran</h2>
       <div class="divider"><span>◆</span></div>
       <p class="section-sub">Mohon konfirmasi kehadiran Anda. Pesan akan terkirim melalui WhatsApp ke nomor mempelai.</p>
@@ -139,7 +212,7 @@
     </section>
 
     <!-- Amplop digital -->
-    <section class="section section-gift">
+    <section class="section section-gift" data-aos="fade-up">
       <h2 class="section-title">Amplop Digital</h2>
       <div class="divider"><span>◆</span></div>
       <p class="section-sub">Kehadiran dan doa Anda sudah merupakan hadiah terindah. Bagi yang berkenan memberikan tanda kasih, kami sediakan:</p>
@@ -160,9 +233,20 @@
       <p class="small-note">Rekening BCA di atas adalah NOMOR CONTOH — ganti dengan nomor rekening asli mempelai sebelum dibagikan. Lihat README.md.</p>
     </section>
 
+    <!-- Turut mengundang -->
+    <!-- KONTEN DEMO — ganti dengan daftar keluarga/tamu kehormatan yang sebenarnya. -->
+    <section class="section section-turut" data-aos="fade-up">
+      <h2 class="section-title">Turut Mengundang</h2>
+      <div class="divider"><span>◆</span></div>
+      <p class="turut-family">Keluarga Besar<br><strong>Bapak H. Bambang &amp; Ibu Sari</strong></p>
+      <p class="turut-family">Keluarga Besar<br><strong>Bapak H. Agus &amp; Ibu Dewi</strong></p>
+      <p class="turut-names">Bapak H. Slamet Riyadi &amp; Ibu Ratna<br>Bapak Drs. H. Ahmad Fauzi &amp; Ibu Nurhayati<br>Keluarga Besar Bapak H. Mahmud</p>
+    </section>
+
     <!-- Penutup -->
-    <section class="section section-closing">
+    <section class="section section-closing" data-aos="fade-up">
       <p class="closing-text">Merupakan suatu kehormatan dan kebahagiaan bagi kami beserta keluarga apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu kepada kedua mempelai.</p>
+      <p class="closing-doa">Semoga Allah SWT memberkahi pernikahan kami dan mengumpulkan kami dalam kebaikan. Aamiin.</p>
       <p class="closing-names">Raka &amp; Sinta</p>
       <p class="closing-date">Minggu, 20 Desember 2026</p>
     </section>
@@ -174,10 +258,12 @@
       </div>
       <p>Dibuat dengan <strong>infly</strong> — Website Undangan</p>
       <p class="footer-sub">Undangan digital elegan: sampul nama tamu, hitung mundur, RSVP WhatsApp, dan amplop digital.</p>
+      <p class="footer-music">Musik: "Meditation Impromptu 01" oleh Kevin MacLeod (incompetech.com), lisensi CC BY 4.0.</p>
     </footer>
   </main>
 
-  <!-- Musik latar (opsional). File assets/music.mp3 tidak disertakan — lihat README.md cara menambahkannya. -->
+  <!-- Musik latar: assets/music.mp3 ("Meditation Impromptu 01" — Kevin MacLeod, CC BY 4.0).
+       Diputar otomatis saat tamu mengetuk "Buka Undangan" (lihat js/script.js). -->
   <audio id="bg-music" src="assets/music.mp3" loop preload="none"></audio>
   <button type="button" id="music-toggle" class="music-btn" aria-label="Putar atau hentikan musik" title="Musik">♪</button>
 
