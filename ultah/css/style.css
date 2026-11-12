@@ -1079,3 +1079,95 @@ h1, h2, h3, .section-title, .modal-title {
   .couple-grid { grid-template-columns: minmax(0, 460px); justify-content: center; }
   .event-cards { grid-template-columns: minmax(0, 460px); justify-content: center; }
 }
+
+/* ============================================================
+   OVERRIDE redesign clean + interaktif (halaman ultah saja)
+   ============================================================ */
+/* Clean: ruang kosong antar section lebih lega. */
+.section { padding: 96px 20px; }
+@media (min-width: 1024px) {
+  .section { padding: 112px 28px; }
+}
+
+/* Peta Leaflet: wadah berbingkai, z-index rendah supaya tidak
+   menutupi navigasi bawah / modal. */
+.map-wrap {
+  margin: 26px auto 18px;
+  max-width: 640px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+#map { height: 320px; width: 100%; position: relative; z-index: 1; background: #eef1f4; }
+#map .leaflet-container { font-family: inherit; }
+
+/* Tiup lilin: lilin digambar penuh dengan CSS. */
+.candles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 32px 0 18px;
+}
+.candle {
+  background: none;
+  border: none;
+  padding: 6px 4px 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.candle-flame {
+  width: 20px;
+  height: 30px;
+  background: radial-gradient(circle at 50% 78%, #fff8c4 0%, #ffd23f 42%, #ff8c1a 72%, #ff5e00 100%);
+  border-radius: 50% 50% 50% 50% / 64% 64% 36% 36%;
+  box-shadow: 0 0 22px 7px rgba(255, 180, 60, .5);
+  transform-origin: 50% 100%;
+  animation: flicker .9s ease-in-out infinite alternate;
+  transition: opacity .35s, transform .35s, box-shadow .35s;
+}
+@keyframes flicker {
+  from { transform: scale(1) rotate(-2deg); }
+  to { transform: scale(1.08, 1.14) rotate(2deg); }
+}
+.candle-smoke {
+  width: 14px;
+  height: 14px;
+  margin-top: -32px;
+  border-radius: 50%;
+  background: rgba(120, 120, 120, .55);
+  filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+}
+.candle-wick { width: 2px; height: 9px; background: #3a3a3a; margin-top: 1px; }
+.candle-body {
+  width: 26px;
+  height: 74px;
+  border-radius: 5px;
+  background: repeating-linear-gradient(45deg, #e85d75 0 8px, #fff 8px 16px);
+  box-shadow: inset -3px 0 5px rgba(0, 0, 0, .12);
+}
+.candle:nth-child(2) .candle-body { background: repeating-linear-gradient(45deg, #1F3864 0 8px, #fff 8px 16px); }
+.candle:nth-child(3) .candle-body { background: repeating-linear-gradient(45deg, #C9A227 0 8px, #fff 8px 16px); }
+.candle:nth-child(4) .candle-body { background: repeating-linear-gradient(45deg, #7FB069 0 8px, #fff 8px 16px); }
+.candle:nth-child(5) .candle-body { background: repeating-linear-gradient(45deg, #7C6BD9 0 8px, #fff 8px 16px); }
+.candle.out { cursor: default; }
+.candle.out .candle-flame { opacity: 0; transform: scale(.3) translateY(8px); animation: none; box-shadow: none; }
+.candle.out .candle-smoke { animation: smokeUp 1.4s ease-out forwards; }
+@keyframes smokeUp {
+  0% { opacity: .7; transform: translateY(0) scale(.7); }
+  100% { opacity: 0; transform: translateY(-26px) scale(1.5); }
+}
+.candle-status {
+  text-align: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+#btn-relight { display: block; margin: 18px auto 0; }
