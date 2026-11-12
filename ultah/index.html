@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+  <!-- Leaflet 1.9.4 (peta interaktif, tiles OpenStreetMap) + canvas-confetti 1.9.3.
+       Keduanya CDN; kalau gagal dimuat, halaman tetap jalan (lihat js/script.js). -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <noscript><style>[data-aos]{opacity:1 !important;transform:none !important;}</style></noscript>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
@@ -134,20 +139,13 @@
         </article>
       </div>
       <a class="btn-outline btn-cal btn-ics" href="ultah.ics" download="Undangan-Alya-Putri.ics">⬇ Unduh Kalender (.ics)</a>
-      <a class="btn-navy btn-map" href="https://www.google.com/maps/search/?api=1&amp;query=Gedung+Serbaguna+Jakarta" target="_blank" rel="noopener">📍 Navigasi Map</a>
-      <p class="small-note">Alamat lengkap menyusul pada undangan cetak. Tautan di atas membuka pencarian lokasi di Google Maps.</p>
+      <div class="map-wrap">
+        <div id="map" role="application" aria-label="Peta lokasi acara (Leaflet + OpenStreetMap)"></div>
+      </div>
+      <a class="btn-navy btn-map" href="https://www.google.com/maps/search/?api=1&amp;query=Gedung+Serbaguna+Jakarta" target="_blank" rel="noopener">📍 Buka di Google Maps</a>
+      <p class="small-note">Peta di atas memakai Leaflet + OpenStreetMap. Titik lokasi adalah contoh (Gedung Serbaguna, Jakarta) — alamat lengkap menyusul pada undangan cetak.</p>
     </section>
 
-    <!-- Live streaming (BARU, v3) -->
-    <section class="section section-stream" data-aos="fade-up">
-      <div class="framed-card">
-        <p class="eyebrow">Live Streaming</p>
-        <h2 class="section-title">Saksikan dari Jauh</h2>
-        <div class="divider"><span>◆</span></div>
-        <p class="section-sub">Bagi keluarga dan sahabat yang berhalangan hadir, momen istimewa ini dapat disaksikan secara langsung melalui live streaming.</p>
-        <p class="stream-note">Tautan live streaming akan dibagikan menjelang hari acara.</p>
-      </div>
-    </section>
 
     <!-- Dress code -->
     <section class="section section-dresscode" data-aos="fade-up">
@@ -201,9 +199,25 @@
         <button type="button" class="carousel-arrow carousel-next" aria-label="Foto berikutnya">›</button>
         <div class="carousel-dots" role="tablist" aria-label="Pilih foto"></div>
       </div>
-      <div class="carousel-thumbs" aria-label="Miniatur galeri"></div>
     </section>
 
+
+    <!-- Tiup lilin interaktif -->
+    <section class="section section-candles" id="tiup-lilin" data-aos="fade-up">
+      <p class="eyebrow">Buat Permohonan</p>
+      <h2 class="section-title">Tiup Lilinnya</h2>
+      <div class="divider"><span>◆</span></div>
+      <p class="section-sub">Ketuk lilinnya satu per satu untuk meniupnya. Kalau semua padam, permohonanmu terkirim!</p>
+      <div class="candles" id="candles">
+        <button type="button" class="candle" aria-label="Tiup lilin 1"><span class="candle-flame"></span><span class="candle-smoke"></span><span class="candle-wick"></span><span class="candle-body"></span></button>
+        <button type="button" class="candle" aria-label="Tiup lilin 2"><span class="candle-flame"></span><span class="candle-smoke"></span><span class="candle-wick"></span><span class="candle-body"></span></button>
+        <button type="button" class="candle" aria-label="Tiup lilin 3"><span class="candle-flame"></span><span class="candle-smoke"></span><span class="candle-wick"></span><span class="candle-body"></span></button>
+        <button type="button" class="candle" aria-label="Tiup lilin 4"><span class="candle-flame"></span><span class="candle-smoke"></span><span class="candle-wick"></span><span class="candle-body"></span></button>
+        <button type="button" class="candle" aria-label="Tiup lilin 5"><span class="candle-flame"></span><span class="candle-smoke"></span><span class="candle-wick"></span><span class="candle-body"></span></button>
+      </div>
+      <p class="candle-status" id="candle-status">5 lilin menyala — ketuk untuk meniup!</p>
+      <button type="button" class="btn-outline" id="btn-relight" hidden>Nyalakan Lagi</button>
+    </section>
 
     <!-- RSVP — kartu arch navy (id="rsvp") -->
     <section class="section section-rsvp" id="rsvp" data-aos="fade-up">
@@ -226,18 +240,6 @@
       <p class="small-note">Nomor rekening dan DANA dapat disalin dari dalam jendela kado.</p>
     </section>
 
-    <!-- Protokol kesehatan (BARU, v3) -->
-    <section class="section section-health" data-aos="fade-up">
-      <p class="eyebrow">Protokol Kesehatan</p>
-      <h2 class="section-title">Demi Kenyamanan Bersama</h2>
-      <div class="divider"><span>◆</span></div>
-      <ul class="health-grid">
-        <li><span class="health-check" aria-hidden="true">✓</span><p>Datang dengan Badan Sehat</p></li>
-        <li><span class="health-check" aria-hidden="true">✓</span><p>Menjaga Kebersihan Area</p></li>
-        <li><span class="health-check" aria-hidden="true">✓</span><p>Etika Batuk &amp; Bersin</p></li>
-        <li><span class="health-check" aria-hidden="true">✓</span><p>Saling Menghormati &amp; Peduli</p></li>
-      </ul>
-    </section>
 
     <!-- Turut mengundang -->
     <!-- KONTEN DEMO — ganti dengan daftar keluarga/tamu kehormatan yang sebenarnya. -->
