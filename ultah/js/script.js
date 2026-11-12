@@ -54,6 +54,10 @@
     window.scrollTo(0, 0);
     // Musik mulai di dalam gestur klik ini (syarat autoplay browser).
     playMusic();
+    // Confetti sambutan (canvas-confetti CDN; dilewati bila CDN gagal dimuat).
+    fireConfetti(true);
+    // Peta Leaflet baru diinisialisasi setelah konten tampil (butuh ukuran wadah).
+    initMap();
     // Hapus sampul dari DOM setelah animasi selesai (hemat memori).
     setTimeout(function () { cover.remove(); }, 700);
     // AOS mengukur posisi setelah konten tampil.
@@ -283,21 +287,23 @@
       });
     }
   });
-  // Bangun thumbnail strip dari gambar tiap slide.
+  // Bangun thumbnail strip dari gambar tiap slide (bila strip-nya ada di halaman).
   var thumbsWrap = document.querySelector(".carousel-thumbs");
-  gallery.querySelectorAll(".carousel-slide img").forEach(function (img, i) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "carousel-thumb" + (i === 0 ? " active" : "");
-    b.setAttribute("aria-label", "Lihat foto " + (i + 1));
-    var t = document.createElement("img");
-    t.src = img.getAttribute("src");
-    t.alt = "";
-    t.className = img.className;
-    b.appendChild(t);
-    b.addEventListener("click", function () { galleryApi.goTo(i); });
-    thumbsWrap.appendChild(b);
-  });
+  if (thumbsWrap) {
+    gallery.querySelectorAll(".carousel-slide img").forEach(function (img, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "carousel-thumb" + (i === 0 ? " active" : "");
+      b.setAttribute("aria-label", "Lihat foto " + (i + 1));
+      var t = document.createElement("img");
+      t.src = img.getAttribute("src");
+      t.alt = "";
+      t.className = img.className;
+      b.appendChild(t);
+      b.addEventListener("click", function () { galleryApi.goTo(i); });
+      thumbsWrap.appendChild(b);
+    });
+  }
 
   // Kisah cinta: carousel tanpa autoplay, dengan progress bar.
   // (Halaman ultah tidak punya section kisah — init dilewati bila elemen tidak ada.)
@@ -390,4 +396,73 @@
   backTop.addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
+
+  /* ---------- 14. Confetti + Tiup Lilin + Peta Leaflet (redesign ultah) ---------- */
+  var CONF_COLORS = ["#C9A227", "#1F3864", "#F6C453", "#E85D75", "#7FB069"];
+  function fireConfetti(big) {
+    if (typeof confetti === "undefined") return;
+    confetti({
+      particleCount: big ? 160 : 60,
+      spread: big ? 100 : 60,
+      origin: { y: 0.6 },
+      colors: CONF_COLORS
+    });
+  }
+
+  /* Tiup lilin: ketuk lilin untuk meniupnya; habis semua -> confetti + ucapan. */
+  var candlesWrap = document.getElementById("candles");
+  if (candlesWrap) {
+    var candleBtns = candlesWrap.querySelectorAll(".candle");
+    var candleStatus = document.getElementById("candle-status");
+    var relightBtn = document.getElementById("btn-relight");
+    function litCandles() {
+      var n = 0;
+      candleBtns.forEach(function (c) { if (!c.classList.contains("out")) n++; });
+      return n;
+    }
+    function updateCandleStatus() {
+      var lit = litCandles();
+      if (lit === 0) {
+        candleStatus.textContent = "Semua lilin padam — permohonanmu terkirim! 🎉";
+        relightBtn.hidden = false;
+        fireConfetti(true);
+      } else {
+        candleStatus.textContent = lit + " lilin menyala — ketuk untuk meniup!";
+        relightBtn.hidden = true;
+      }
+    }
+    candleBtns.forEach(function (c) {
+      c.addEventListener("click", function () {
+        if (c.classList.contains("out")) return;
+        c.classList.add("out");
+        fireConfetti(false);
+        updateCandleStatus();
+      });
+    });
+    relightBtn.addEventListener("click", function () {
+      candleBtns.forEach(function (c) { c.classList.remove("out"); });
+      updateCandleStatus();
+    });
+  }
+
+  /* Peta Leaflet + OpenStreetMap. Lokasi contoh: Jakarta Pusat (Monas),
+     marker "Gedung Serbaguna, Jakarta". Diinisialisasi malas (lazy) saat
+     undangan dibuka, karena wadah peta tersembunyi sebelum itu. */
+  var mapInited = false;
+  var leafletMap = null;
+  function initMap() {
+    if (mapInited) return;
+    var el = document.getElementById("map");
+    if (!el || typeof L === "undefined") return;
+    mapInited = true;
+    leafletMap = L.map("map").setView([-6.1754, 106.8272], 15);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
+    }).addTo(leafletMap);
+    L.marker([-6.1754, 106.8272]).addTo(leafletMap)
+      .bindPopup("<b>Gedung Serbaguna</b><br>Jakarta — lokasi contoh")
+      .openPopup();
+    setTimeout(function () { if (leafletMap) leafletMap.invalidateSize(); }, 350);
+  }
 })();
