@@ -211,6 +211,7 @@
   /* ---------- 9. Carousel generik (galeri + kisah cinta) ---------- */
   // Satu slide terlihat; geser dengan transform. Autoplay opsional.
   function initCarousel(root, opts) {
+    if (!root) return null; // elemen carousel tidak ada di halaman ini — lewati saja
     var track = root.querySelector(".carousel-track");
     var slides = track.children;
     var total = slides.length;
@@ -299,6 +300,7 @@
   });
 
   // Kisah cinta: carousel tanpa autoplay, dengan progress bar.
+  // (Halaman ultah tidak punya section kisah — init dilewati bila elemen tidak ada.)
   initCarousel(document.getElementById("story-carousel"), { autoplayMs: 0 });
 
   /* ---------- 10. Modal (RSVP + Kado) ---------- */
