@@ -1171,3 +1171,8 @@ h1, h2, h3, .section-title, .modal-title {
   color: var(--muted);
 }
 #btn-relight { display: block; margin: 18px auto 0; }
+
+/* Foto di dalam arch (ganti monogram): foto mengisi penuh bentuk arch,
+   arch sedikit diperbesar supaya foto kelihatan jelas. */
+.couple-arch { overflow: hidden; padding: 0; width: 176px; height: 220px; }
+.couple-photo { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
